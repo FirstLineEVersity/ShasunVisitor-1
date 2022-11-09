@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Visitor</string>
+    <string name="app_name_full">Visitors Entry Pass</string>
+
+    <string name="loading">Loading, Please Wait...</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="r1">Meeting</string>
+    <string name="r2">Vendor</string>
+    <string name="r3">Enquery</string>
+    <string name="r4">Others</string>
+    <!-- Leave status -->
+    <string name="lsName">Staff Name</string>
+    <string name="lsVName">Name</string>
+    <string name="lsMobile">Mobile</string>
+    <string name="lsAddress">Address</string>
+    <string name="lsPurpose">Purpose</string>
+    <string name="lsWhomMeet">Who to Meet</string>
+    <string name="lsInTime">In Time</string>
+    <string name="lsOutTime">Out Time</string>
+    <string name="lsPicture">Leave Status</string>
+
+
+
+
+</resources>

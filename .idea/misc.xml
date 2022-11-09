@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/EversityProjects/shasun/ShasunVisitor/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="..\:/EversityProjects/shasun/ShasunVisitor/app/src/main/res/drawable/border.xml" value="0.1" />
+        <entry key="..\:/EversityProjects/shasun/ShasunVisitor/app/src/main/res/drawable/border_black.xml" value="0.1" />
+        <entry key="..\:/EversityProjects/shasun/ShasunVisitor/app/src/main/res/drawable/border_gray.xml" value="0.1" />
+        <entry key="..\:/EversityProjects/shasun/ShasunVisitor/app/src/main/res/drawable/btnhover.xml" value="0.1" />
+        <entry key="..\:/EversityProjects/shasun/ShasunVisitor/app/src/main/res/drawable/btnnormal.xml" value="0.1" />
+        <entry key="..\:/EversityProjects/shasun/ShasunVisitor/app/src/main/res/drawable/btnselector.xml" value="0.1" />
+        <entry key="..\:/EversityProjects/shasun/ShasunVisitor/app/src/main/res/drawable/btnselector_revarse.xml" value="0.1" />
+        <entry key="..\:/EversityProjects/shasun/ShasunVisitor/app/src/main/res/drawable/btnselectoraddvisitor.xml" value="0.1" />
+        <entry key="..\:/EversityProjects/shasun/ShasunVisitor/app/src/main/res/drawable/ic_baseline_calendar_month_24.xml" value="0.1" />
+        <entry key="..\:/EversityProjects/shasun/ShasunVisitor/app/src/main/res/drawable/ic_baseline_expand_circle_down_24.xml" value="0.1" />
+        <entry key="..\:/EversityProjects/shasun/ShasunVisitor/app/src/main/res/drawable/ic_baseline_person_add_alt_1_24.xml" value="0.1" />
+        <entry key="..\:/EversityProjects/shasun/ShasunVisitor/app/src/main/res/drawable/ic_baseline_person_add_alt_1_24_gray.xml" value="0.1" />
+        <entry key="..\:/EversityProjects/shasun/ShasunVisitor/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1" />
+        <entry key="..\:/EversityProjects/shasun/ShasunVisitor/app/src/main/res/drawable/ic_user_person_24.xml" value="0.1" />
+        <entry key="..\:/EversityProjects/shasun/ShasunVisitor/app/src/main/res/drawable/p_address.xml" value="0.1" />
+        <entry key="..\:/EversityProjects/shasun/ShasunVisitor/app/src/main/res/drawable/p_department_24.xml" value="0.1" />
+        <entry key="..\:/EversityProjects/shasun/ShasunVisitor/app/src/main/res/drawable/p_division.xml" value="0.1" />
+        <entry key="..\:/EversityProjects/shasun/ShasunVisitor/app/src/main/res/drawable/p_ic_baseline_phone_android_24.xml" value="0.1" />
+        <entry key="..\:/EversityProjects/shasun/ShasunVisitor/app/src/main/res/drawable/p_ic_baseline_phone_android_24_gray.xml" value="0.1" />
+        <entry key="..\:/EversityProjects/shasun/ShasunVisitor/app/src/main/res/drawable/p_mail.xml" value="0.1" />
+        <entry key="..\:/EversityProjects/shasun/ShasunVisitor/app/src/main/res/layout/activity_history.xml" value="0.1" />
+        <entry key="..\:/EversityProjects/shasun/ShasunVisitor/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/EversityProjects/shasun/ShasunVisitor/app/src/main/res/layout/content_main2.xml" value="0.1" />
+        <entry key="..\:/EversityProjects/shasun/ShasunVisitor/app/src/main/res/layout/gridlayout_cardview_home_page.xml" value="0.1" />
+        <entry key="..\:/EversityProjects/shasun/ShasunVisitor/app/src/main/res/layout/header.xml" value="0.1" />
+        <entry key="..\:/EversityProjects/shasun/ShasunVisitor/app/src/main/res/layout/leavestatuslistitem.xml" value="0.12760416666666666" />
+        <entry key="..\:/EversityProjects/shasun/ShasunVisitor/app/src/main/res/layout/pageheaderwithoutrefresh.xml" value="0.1" />
+        <entry key="..\:/EversityProjects/shasun/ShasunVisitor/app/src/main/res/layout/row.xml" value="0.1" />
+        <entry key="..\:/EversityProjects/shasun/ShasunVisitor/app/src/main/res/menu/main_menu.xml" value="0.1" />
+        <entry key="..\:/EversityProjects/shasun/ShasunVisitor/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
