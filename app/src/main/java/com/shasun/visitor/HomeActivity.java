@@ -3,15 +3,29 @@ package com.shasun.visitor;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.Rect;
+import android.graphics.pdf.PdfDocument;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.Editable;
+import android.text.Layout;
+import android.text.StaticLayout;
+import android.text.TextPaint;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.text.format.Time;
@@ -45,16 +59,22 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputEditText;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Rectangle;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -69,8 +89,18 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private static String ResultString = "";
     int appdownload = 0;
     boolean isAppUpdateAvailable = false;
-    Button btnTakePhoto, btnSave, btnRefresh, btnVisitorOut;
+    ImageButton btnTakePhoto;
+    ImageButton  btnSave, btnRefresh, btnPrint;
+    ImageButton btnVisitorOut;
+    TextView txtVisitorOut;
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
     public static final int RequestPermissionCode = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.CAMERA,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.MANAGE_EXTERNAL_STORAGE
+    };
     TextInputEditText txtVisitorName, txtMobile, txtMobile1, txtAddress, txtMsg;
     AutoCompleteTextView txtWhoMeet;
     TextView txtDateTime, txtDateTime1;
@@ -79,6 +109,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     LinearLayout llHome, llHomeNewUser;
     String visitorId = "";
     ImageButton ibAddVisitor;
+
+    String visitorIdPrint = "";
+
+    String file_name_path = Environment.getExternalStorageDirectory().getPath() + "/Download/";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +126,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         llHome = findViewById(R.id.llHome);
         llHomeNewUser = findViewById(R.id.llHomeNewUser);
         ibAddVisitor = findViewById(R.id.ibAddVisitor);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton radioButton = (RadioButton) radioGroup.findViewById(checkedId);
+                String purpose = (String) radioButton.getText();
+                txtMsg.setText(purpose);
+            }
+
+        });
 
         final SharedPreferences loginsession = getApplicationContext().getSharedPreferences("SessionLogin", 0);
         lngEmployeeId = loginsession.getLong("userid", 1);
@@ -111,8 +154,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setItemIconTintList(null);
 
         btnVisitorOut = findViewById(R.id.btnVisitorOut);
+        txtVisitorOut = findViewById(R.id.txtVisitorOut);
         btnTakePhoto = findViewById(R.id.buttonTake);
-        btnSave = findViewById(R.id.btnSave);
+       // btnSave = findViewById(R.id.btnSave);
+        btnPrint = findViewById(R.id.btnPrint);
         btnRefresh = findViewById(R.id.btnRefresh);
         imageView = findViewById(R.id.imageView);
         txtVisitorName = findViewById(R.id.txtVisitorName);
@@ -121,6 +166,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         txtAddress = findViewById(R.id.txtAddress);
         txtMsg = findViewById(R.id.txtMsg);
         txtWhoMeet = findViewById(R.id.txtWhoMeet);
+
+
         EnableRuntimePermission();
         btnTakePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,10 +176,19 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 startActivityForResult(intent, 7);
             }
         });
-        btnSave.setOnClickListener(new View.OnClickListener() {
+       /* btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 saveData();
+            }
+        });
+
+        */
+        btnPrint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveDataPrint();
+                //printPass();
             }
         });
         btnVisitorOut.setOnClickListener(new View.OnClickListener() {
@@ -146,6 +202,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 refreshData();
             }
         });
@@ -167,11 +224,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 String enteredValue = s.toString();
                 if (enteredValue.length() <= 9) {
                     btnVisitorOut.setVisibility(View.GONE);
-                } else if (enteredValue.length() > 9 && enteredValue.length() < 14) {
-                    
+                    txtVisitorOut.setVisibility(View.GONE);
+                } else if (enteredValue.length() > 9 && enteredValue.length() < 11) {
+
                     MobileNoValidation();
-                } else if (enteredValue.length() > 13) {
-                    dataRequired("Please check the Mobile Number(It has More than 13 digits)");
+                } else if (enteredValue.length() > 10) {
+                    dataRequired("Please check the Mobile Number(It has More than 10 digits)");
                 }
 
             }
@@ -192,8 +250,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             public void afterTextChanged(Editable s) {
                 String enteredValue = s.toString();
                 if (enteredValue.length() > 2) {
-                        ToWhomToMeet();
+                    ToWhomToMeet();
 
+                }else{
+                    ll.clear();
+                    if(LPA != null){
+                        LPA.notifyDataSetChanged();
+                    }
                 }
 
             }
@@ -229,34 +292,53 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         ibAddVisitor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                refreshScreen();
-
-            }
+                 refreshScreen();
+                            }
         });
+        txtMsg.setText("Meeting");
+
     }
 
+    public void printPass(){
+        if(visitorIdPrint.length() > 0) {
+            String url = "http://erp.shasuncollege.edu.in/evarsityshasun/usermanager/loginManager/frmVisitorPrint.jsp?hdnVisitorId=" + visitorIdPrint;
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
+        }
+    }
 
     public void refreshScreen() {
         llHome.setVisibility(View.VISIBLE);
         llHomeNewUser.setVisibility(View.GONE);
         refreshData();
+        ll.clear();
+        if(LPA != null){
+            LPA.notifyDataSetChanged();
+        }
         txtMobile1.setText("");
         btnVisitorOut.setVisibility(View.GONE);
+        txtVisitorOut.setVisibility(View.GONE);
         bitmap = null;
     }
-
+    List ll = new ArrayList<String>();
+    SpinnerListAdapter LPA;
     private void displayLeavePeriod() {
         if (toWhomMeet_data.size() == 0) {
+            ll.clear();
+            if(LPA != null){
+                LPA.notifyDataSetChanged();
+            }
             Toast.makeText(HomeActivity.this, "Response: No Data Found", Toast.LENGTH_LONG).show();
         } else {
             Collection<String> LeavePeriodcollection = toWhomMeet_data.values();
             String[] arrayLeavePeriod = LeavePeriodcollection.toArray(new String[LeavePeriodcollection.size()]);
             // ArrayAdapter<String> LPA = new ArrayAdapter<String>(this, R.layout.dropdownlistitem, arrayLeavePeriod);
-            List ll = new ArrayList<String>();
+            ll.clear();
             for (String item : arrayLeavePeriod) {
                 ll.add(item);
             }
-            SpinnerListAdapter LPA = new SpinnerListAdapter(this, R.layout.gridlayout_cardview_home_page, R.id.txtWhoMeet, ll);
+            LPA = new SpinnerListAdapter(this, R.layout.gridlayout_cardview_home_page, R.id.txtWhoMeet, ll);
 
             txtWhoMeet.setAdapter(LPA);
             txtWhoMeet.showDropDown();
@@ -268,6 +350,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     protected void onResume() {
         super.onResume();
         toolbar.setTitle(getResources().getString(R.string.app_name_full));
+        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        verifyStoragePermissions(this);
     }
 
     public void setCirularImage(byte[] byteArray) {
@@ -300,7 +384,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         }
         if (id == R.id.nav_history) {
-            Intent intent = new Intent(HomeActivity.this, HistoryActivity.class);
+            Intent intent = new Intent(HomeActivity.this,ViewVisitorPassPdf.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.putExtra("Flag", 2);
             startActivity(intent);
@@ -323,8 +407,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         txtAddress.setText("");
         txtWhoMeet.setText("");
         // txtMobile.setText("");
-        txtMsg.setText("");
+        txtMsg.setText("Meeting");
+        ((RadioButton) radioGroup.getChildAt(0)).setChecked(true);
         imageView.setImageBitmap(null);
+        ll.clear();
+        if(LPA != null){
+            LPA.notifyDataSetChanged();
+        }
+
         bitmap = null;
 
     }
@@ -351,6 +441,36 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             WebService.strParameters = new String[]{"String", "visitorname", txtVisitorName.getText().toString(), "String", "visitoraddress", txtAddress.getText().toString(), "String", "visitorcontactno", txtMobile.getText().toString(), "String", "purposeofvisit", purpose, "String", "towhommeet", "66", "String", "visitorphoto", encodedImage};
             WebService.METHOD_NAME = "saveVisitorJson";
             AsyncCallWS task = new AsyncCallWS();
+            task.execute();
+        }
+
+    }
+
+    public void saveDataPrint() {
+        if (bitmap == null) {
+            dataRequired("Please Take Photo");
+        } else if (txtVisitorName.getText().toString().length() < 1) {
+            dataRequired("Please Enter Visitor Name");
+        } else if (txtMobile.getText().toString().length() < 1) {
+            dataRequired("Please Enter Visitor Mobile Number");
+        } else if (txtAddress.getText().toString().length() < 1) {
+            dataRequired("Please Enter Visitor Address");
+        } else if (txtWhoMeet.getText().toString().length() < 1) {
+            dataRequired("Please Select to Who you want to meet");
+        } else {
+
+           // replace single
+
+            int radioButtonID = radioGroup.getCheckedRadioButtonId();
+            RadioButton radioButton = (RadioButton) radioGroup.findViewById(radioButtonID);
+            String purpose = (String) radioButton.getText();
+            String encodedImage = "";
+            if (bitmap != null) {
+                encodedImage = getBase64String(bitmap);
+            }
+            WebService.strParameters = new String[]{"String", "visitorname", txtVisitorName.getText().toString(), "String", "visitoraddress", txtAddress.getText().toString(), "String", "visitorcontactno", txtMobile.getText().toString(), "String", "purposeofvisit", purpose, "String", "towhommeet", "66", "String", "visitorphoto", encodedImage};
+            WebService.METHOD_NAME = "saveVisitorJson";
+            AsyncCallWSPrint task = new AsyncCallWSPrint();
             task.execute();
         }
 
@@ -426,6 +546,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 if (!js.getString("Status").equalsIgnoreCase("Error")) {
                     txtMobile1.setText("");
                     btnVisitorOut.setVisibility(View.GONE);
+                    txtVisitorOut.setVisibility(View.GONE);
                 } else {
                     Toast.makeText(HomeActivity.this, ResultString, Toast.LENGTH_SHORT).show();
                 }
@@ -482,6 +603,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                             visitorId = jo.getString("visitorid");
                             //show entry out
                             btnVisitorOut.setVisibility(View.VISIBLE);
+                            txtVisitorOut.setVisibility(View.VISIBLE);
 
 
                         }
@@ -540,6 +662,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
             } catch (JSONException e) {
                 e.printStackTrace();
+                ll.clear();
+                if(LPA != null){
+                    LPA.notifyDataSetChanged();
+                }
             }
             displayLeavePeriod();
         }
@@ -603,14 +729,68 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             if (dialog != null && dialog.isShowing()) {
                 dialog.dismiss();
             }
+           // createpdf();
             try {
                 JSONObject js = new JSONObject(ResultString);
                 if (js.has("Status") && js.getString("Status").equalsIgnoreCase("Success")) {
                     Toast.makeText(HomeActivity.this, "Response: " + js.getString("Message"), Toast.LENGTH_LONG).show();
                     refreshScreen();
+                    // createpdf();
                 } else {
                     Toast.makeText(HomeActivity.this, "Response: " + js.getString("Message"), Toast.LENGTH_LONG).show();
 
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Toast.makeText(HomeActivity.this, "Response: " + ResultString, Toast.LENGTH_LONG).show();
+
+            }
+
+
+        }
+    }
+
+    private class AsyncCallWSPrint extends AsyncTask<Void, Void, Void> {
+        ProgressDialog dialog = new ProgressDialog(HomeActivity.this);
+
+        @Override
+        protected void onPreExecute() {
+            dialog.setMessage(getResources().getString(R.string.loading));
+            //show dialog
+            dialog.show();
+            //Log.i(TAG, "onPreExecute");
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            //Log.i(TAG, "doInBackground");
+            if (android.os.Debug.isDebuggerConnected())
+                android.os.Debug.waitForDebugger();
+            ResultString = WebService.invokeWS();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            //Log.i(TAG, "onPostExecute");
+            if (dialog != null && dialog.isShowing()) {
+                dialog.dismiss();
+            }
+            // createpdf();
+            try {
+               // ResultString ="{\"Status\":\"Success\",\"Message\":\"Visitors Entry In Saved Successfully\",\"Data\":[{\"visitorid\":\"56\"}]}";
+                JSONObject js = new JSONObject(ResultString);
+                if (js.has("Status") && js.getString("Status").equalsIgnoreCase("Success")) {
+                    Toast.makeText(HomeActivity.this, "Response: " + js.getString("Message"), Toast.LENGTH_LONG).show();
+                    JSONArray ja = new JSONArray(js.getString("Data"));
+                    visitorIdPrint = new JSONObject(ja.get(0).toString()).getString("visitorid");
+                   // Log.i("Test : ",visitorIdPrint);
+                    createpdf();
+                    refreshScreen();
+
+                    //  printPass();
+                } else {
+                    Toast.makeText(HomeActivity.this, "Response: " + js.getString("Message"), Toast.LENGTH_LONG).show();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -632,8 +812,28 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 Manifest.permission.CAMERA)) {
             Toast.makeText(HomeActivity.this, "CAMERA permission allows us to Access CAMERA app", Toast.LENGTH_LONG).show();
         } else {
-            ActivityCompat.requestPermissions(HomeActivity.this, new String[]{
-                    Manifest.permission.CAMERA}, RequestPermissionCode);
+            ActivityCompat.requestPermissions(HomeActivity.this, PERMISSIONS_STORAGE, RequestPermissionCode);
+        }
+    }
+
+    /**
+     * Checks if the app has permission to write to device storage
+     * <p>
+     * If the app does not has permission then the user will be prompted to grant permissions
+     *
+     * @param activity
+     */
+    public static void verifyStoragePermissions(Activity activity) {
+        // Check if we have write permission
+        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
         }
     }
 
@@ -648,6 +848,167 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     Toast.makeText(HomeActivity.this, "Permission Canceled, Now your application cannot access CAMERA.", Toast.LENGTH_LONG).show();
                 }
                 break;
+        }
+    }
+
+
+    public void createpdf() {
+        Rect bounds = new Rect();
+        int pageWidth = 400;
+        int pageheight = 600;
+        int pathHeight = 2;
+
+        PdfDocument myPdfDocument = new PdfDocument();
+
+
+
+
+        Paint paintHeader = new Paint(Paint.ANTI_ALIAS_FLAG);
+        Paint paintBody = new Paint(Paint.ANTI_ALIAS_FLAG);
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        Paint paint2 = new Paint(Paint.ANTI_ALIAS_FLAG);
+        Path path = new Path();
+        PdfDocument.PageInfo myPageInfo = new PdfDocument.PageInfo.Builder(pageWidth, pageheight, 1).create();
+        PdfDocument.Page documentPage = myPdfDocument.startPage(myPageInfo);
+        Canvas canvas = documentPage.getCanvas();
+
+
+
+        int y = 55; // x = 10,
+        //int x = (canvas.getWidth() / 2);
+        int x = 10;
+
+        int spSize = 12;//your sp size
+        // Convert the sp to pixels
+        float scaledTextSize = spSize * getResources().getDisplayMetrics().scaledDensity;
+
+        paintHeader.setTextSize(scaledTextSize);
+        paintHeader.setColor(getResources().getColor(R.color.appColor));
+
+        int spSize1 = 8;//your sp size
+        // Convert the sp to pixels
+        float scaledTextSize1 = spSize1 * getResources().getDisplayMetrics().scaledDensity;
+
+        paintBody.setTextSize(scaledTextSize1);
+        paintBody.setColor(getResources().getColor(R.color.appColor));
+
+        String appName = "Visitor Pass";
+        paintHeader.getTextBounds(appName, 0, appName.length(), bounds);
+        x = (canvas.getWidth() / 2) - (bounds.width() / 2);
+        canvas.drawText(appName, x, y, paintHeader);
+
+        y += 10;
+        canvas.drawText("", x, y, paint);
+
+        Bitmap b = (Bitmap.createScaledBitmap(bitmap, 120, 150, false));
+        x = (canvas.getWidth() / 2) - (120 / 2);
+        canvas.drawBitmap(b, x, y, paint);
+        y += 150;
+        paint.getTextBounds(txtDateTime.getText().toString(), 0, txtDateTime.getText().toString().length(), bounds);
+        x = (canvas.getWidth() / 2) - (bounds.width() / 2);
+        y += paint.descent() - paint.ascent();
+        canvas.drawText(txtDateTime.getText().toString(), x, y, paint);
+
+
+        TextPaint mTextPaint = new TextPaint();
+        mTextPaint.setTextSize(scaledTextSize1);
+        mTextPaint.setColor(getResources().getColor(R.color.appColor));
+
+
+        StaticLayout mTextLayoutName = new StaticLayout("Name: " + txtVisitorName.getText().toString(), mTextPaint, canvas.getWidth() - 100, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
+        canvas.save();
+        x = 50;
+        y += 20;
+        canvas.translate(x, y);
+        mTextLayoutName.draw(canvas);
+        canvas.restore();
+
+        StaticLayout mTextLayoutMobile = new StaticLayout("Mobile: " + txtMobile.getText().toString(), mTextPaint, canvas.getWidth() - 100, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
+        canvas.save();
+        x = 50;
+        int hightspace = 10;
+        y += mTextLayoutName.getHeight() + hightspace;
+        canvas.translate(x, y);
+        mTextLayoutMobile.draw(canvas);
+        canvas.restore();
+
+        StaticLayout mTextLayoutAddress = new StaticLayout("Address: " + txtAddress.getText().toString(), mTextPaint, canvas.getWidth() - 100, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
+        canvas.save();
+        x = 50;
+        y += mTextLayoutMobile.getHeight() + hightspace;
+        canvas.translate(x, y);
+        mTextLayoutAddress.draw(canvas);
+        canvas.restore();
+
+        StaticLayout mTextLayoutPur = new StaticLayout("Purpose: " + txtMsg.getText().toString(), mTextPaint, canvas.getWidth() - 100, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
+        canvas.save();
+        x = 50;
+        y += mTextLayoutAddress.getHeight() + hightspace;
+        canvas.translate(x, y);
+        mTextLayoutPur.draw(canvas);
+        canvas.restore();
+
+        StaticLayout mTextLayoutMeet = new StaticLayout("To Meet: " + txtWhoMeet.getText().toString(), mTextPaint, canvas.getWidth() - 100, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
+        canvas.save();
+        x = 50;
+        y += mTextLayoutPur.getHeight() + hightspace;
+        canvas.translate(x, y);
+        mTextLayoutMeet.draw(canvas);
+        canvas.restore();
+
+
+        //blank space
+        y += paint.descent() - paint.ascent();
+        canvas.drawText("", x, y, paint);
+
+
+        //blank space
+        y += paint.descent() - paint.ascent();
+        canvas.drawText("", x, y, paint);
+
+        // Resources res = getResources();
+        // Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.srmuh_logo);
+        y += 50;
+        Rect r = new Rect(10, 10, 390,  y);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(Color.BLACK);
+        canvas.drawRect(r, paint);
+
+        myPdfDocument.finishPage(documentPage);
+        SimpleDateFormat df = new SimpleDateFormat("dd_mm_yyyy_hh_mm_ss");
+        file_name_path = file_name_path + "Visitor" + df.format(new Date()) + ".pdf";
+        File file = new File(file_name_path);
+        Log.e("TEST: ", file_name_path);
+        try {
+            myPdfDocument.writeTo(new FileOutputStream(file));
+            Log.e("TEST: ", file_name_path);
+            myPdfDocument.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        viewPdfFile(getApplicationContext());
+    }
+
+    public void viewPdfFile(Context context) {
+        File pdfFile = new File(file_name_path);//File path
+        if (pdfFile.exists()) //Checking if the file exists or not
+        {
+            Log.e("TESTFile 1: ", file_name_path);
+            Uri uri;
+            if (Build.VERSION.SDK_INT < 24) {
+                uri = Uri.fromFile(pdfFile);
+            } else {
+                uri = Uri.parse(pdfFile.getPath());
+            }
+            Intent objIntent = new Intent(Intent.ACTION_VIEW);
+            objIntent.setDataAndType(uri, "application/pdf");
+            objIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            objIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(objIntent);//Starting the pdf viewer
+        } else {
+
+            Toast.makeText(getApplicationContext(), "The file not exists! ", Toast.LENGTH_SHORT).show();
+
         }
     }
 }

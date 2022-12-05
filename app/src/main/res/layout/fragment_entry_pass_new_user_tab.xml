@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".EntryPassNewUserFragment"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <!-- TODO: Update blank fragment layout -->
+         <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+             android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+             android:verticalScrollbarPosition="defaultPosition"
+             android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                 android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtDateTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="dfgdhgfhggfgfhfhfh"
+                    android:textColor="@color/purple_700"
+                    android:textSize="@dimen/login_text_tab"
+                    android:textStyle="bold" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/textInputLayoutProfile"
+                    android:layout_marginTop="10dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txtMobile"
+
+                        style="@style/textInputProfileEdit_tab"
+                        android:clickable="false"
+                        android:drawableStart="@drawable/p_ic_baseline_phone_android_24"
+                        android:drawableLeft="@drawable/p_ic_baseline_phone_android_24"
+                        android:enabled="false"
+                        android:hint="Mobile"
+
+                        android:inputType="number" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="140dp"
+                    android:layout_height="180dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/gray"
+                    android:padding="3dp" />
+
+
+                <ImageButton
+                    android:id="@+id/buttonTake"
+                    style="@style/btnIcon"
+                    android:src="@drawable/btnselector_camera" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/usernameInputLayout"
+                    style="@style/textInputLayoutProfile">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txtVisitorName"
+                        style="@style/textInputProfileEdit_tab"
+                        android:drawableStart="@drawable/ic_user_person_24"
+                        android:drawableLeft="@drawable/ic_user_person_24"
+                        android:hint="Visitor Name" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout style="@style/textInputLayoutProfile">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txtAddress"
+                        style="@style/textInputProfileEdit_tab"
+                        android:drawableStart="@drawable/p_address"
+                        android:drawableLeft="@drawable/p_address"
+                        android:hint="Address" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout style="@style/textInputLayoutProfile"
+                    app:endIconMode="clear_text">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/txtWhoMeet"
+                        style="@style/textInputProfileEdit_tab"
+                        android:drawableRight="@drawable/ic_baseline_expand_circle_down_24"
+                        android:hint="@string/lsWhomMeet"
+                        android:imeOptions="flagNoExtractUi|actionSearch" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Purpose"
+                    android:textSize="@dimen/txtTint"
+                    android:textColor="@color/black"/>
+
+                <RadioGroup
+                    android:id="@+id/radio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+
+                    <RadioButton
+                        android:id="@+id/r1"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/appColor"
+                        android:checked="true"
+                        android:text="@string/r1"
+                        android:textSize="@dimen/home_radio_tab"/>
+
+                    <RadioButton
+                        android:id="@+id/r2"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/appColor"
+                        android:text="@string/r2"
+                        android:textSize="@dimen/home_radio_tab"/>
+
+                    <RadioButton
+                        android:id="@+id/r3"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/appColor"
+                        android:textSize="@dimen/home_radio_tab"
+                        android:text="@string/r3" />
+
+                    <RadioButton
+                        android:id="@+id/r4"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/appColor"
+                        android:text="@string/r4"
+                        android:textSize="@dimen/home_radio_tab"/>
+
+                </RadioGroup>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Write Something"
+                    android:textSize="@dimen/txtTint"
+                    android:textColor="@color/black"/>
+                <EditText
+                    android:id="@+id/txtMsg"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:padding="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textSize="@dimen/login_text_tab"
+                    android:textColor="@color/black"
+                    android:background="@drawable/text_area"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:weightSum="10">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:orientation="vertical">
+
+                        <ImageButton
+                            android:id="@+id/btnPrint"
+                            style="@style/btnIcon"
+                            android:src="@drawable/btnselector_print" />
+
+                        <TextView
+                            style="@style/txtIcon_tab"
+                            android:text="Print" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:orientation="vertical">
+
+                        <ImageButton
+                            android:id="@+id/btnRefresh"
+                            style="@style/btnIcon"
+                            android:src="@drawable/btnselector_refresh" />
+
+                        <TextView
+                            style="@style/txtIcon_tab"
+                            android:text="Refresh" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <ImageButton
+                            android:id="@+id/btnPrint1"
+                            style="@style/btnIcon"
+                            android:src="@drawable/btnselector_print" />
+
+                        <TextView
+                            style="@style/txtIcon_tab"
+                            android:text="Print" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+
+
+
+</LinearLayout>

@@ -13,13 +13,29 @@ xmlns:android="http://schemas.android.com/apk/res/android">
     android:background="@drawable/btnselector_revarse"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
     <ImageView
         android:id="@+id/lsimageView"
         android:layout_width="140dp"
         android:layout_height="180dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
         android:background="@color/gray"
         android:padding="3dp"/>
+
+        <ImageButton
+            android:id="@+id/btnPrint"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/btnselector_print"
+            android:background="@android:color/transparent"
+           android:layout_alignParentRight="true"
+            android:scaleType="fitXY"
+            android:padding="2dp"/>
+    </RelativeLayout>
 
 
     <com.google.android.material.textfield.TextInputLayout

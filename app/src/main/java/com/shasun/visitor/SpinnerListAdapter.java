@@ -41,9 +41,7 @@ public class SpinnerListAdapter extends ArrayAdapter<String> {
         JSONObject jo = null;
         try {
             jo = new JSONObject(items.get(position));
-            Log.e("Radha TEst",jo.getString("staffname"));
-            Log.e("Radha TEst",jo.getString("department"));
-            if (jo != null) {
+              if (jo != null) {
                 if(position % 2 ==0){
                     view.setBackground(view.getContext().getDrawable(R.drawable.border_gray));
                 }else {

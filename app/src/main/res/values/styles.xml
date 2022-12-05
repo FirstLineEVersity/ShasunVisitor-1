@@ -1,28 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="textInputLayoutProfile">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginTop">15dp</item>
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:layout_marginRight">10dp</item>
-        <item name="passwordToggleTint">@color/appColor</item>
+        <item name="passwordToggleTint">@color/black</item>
         <item name="android:drawablePadding">0dp</item>
-
+        <item name="android:textColorHint">@color/black</item>
+        <item name="android:textSize">@dimen/txtTint</item>
+        <item name="android:textColor">@color/black</item>
         <item name="boxBackgroundMode">outline</item>
         <item name="boxStrokeWidth">1dp</item>
         <item name="boxStrokeColor">@android:color/white</item>
+        <item name="colorAccent">@color/black</item>
+        <item name="colorControlNormal">@color/black</item>
+        <item name="colorControlActivated">@color/black</item>
+        <item name="android:layout_marginStart">15dp</item>
+        <item name="android:layout_marginEnd">15dp</item>
+       <item name="hintTextAppearance">@style/CustomTextAppearance</item>
     </style>
+    <style name="TextLabel" parent="TextAppearance.AppCompat">
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColorHint">@color/black</item>
+        <item name="android:textSize">20sp</item>
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+        <item name="colorAccent">@color/black</item>
+        <item name="colorControlNormal">@color/black</item>
+        <item name="colorControlActivated">@color/black</item>
+    </style>
+
     <style name="textInputLayoutReport">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center</item>
         <item name="passwordToggleTint">@color/appColor</item>
         <item name="android:drawablePadding">0dp</item>
-
         <item name="boxBackgroundMode">outline</item>
         <item name="boxStrokeWidth">1dp</item>
         <item name="boxStrokeColor">@android:color/white</item>
+        <item name="android:textColorHint">@color/black</item>
+
+    </style>
+    <style name="CustomTextAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="colorAccent">@color/appColor</item>
+        <item name="colorControlNormal">@color/appColor</item>
+        <item name="colorControlActivated">@color/appColor</item>
+    </style>
+    <style name="textInputProfileEdit_tab">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:inputType">textMultiLine</item>
+        <item name="android:editable">true</item>
+        <item name="android:cursorVisible">true</item>
+        <item name="android:textSize">@dimen/login_text_tab</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:backgroundTint">@color/appColor</item>
+        <item name="android:textColorHint">@color/black</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="colorAccent">@color/black</item>
+        <item name="colorControlNormal">@color/black</item>
+        <item name="colorControlActivated">@color/black</item>
+        <item name="android:paddingBottom">15dp</item>
+
     </style>
 
     <style name="textInputProfileEdit">
@@ -36,7 +83,13 @@
         <item name="android:focusable">true</item>
         <item name="android:focusableInTouchMode">true</item>
         <item name="android:backgroundTint">@color/appColor</item>
-        <item name="android:textColorHint">@color/appColor</item>
+        <item name="android:textColorHint">@color/black</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="colorAccent">@color/black</item>
+        <item name="colorControlNormal">@color/black</item>
+        <item name="colorControlActivated">@color/black</item>
+        <item name="android:paddingBottom">15dp</item>
+
     </style>
 
     <style name="textInputReportEdit">
@@ -48,7 +101,22 @@
         <item name="android:textSize">@dimen/login_text</item>
         <item name="android:focusable">true</item>
         <item name="android:backgroundTint">@color/appColor</item>
-        <item name="android:textColorHint">@color/appColor</item>
+        <item name="android:textColorHint">@color/black</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+
+    <style name="textInputReportEditTab">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:inputType">textMultiLine</item>
+        <item name="android:editable">true</item>
+        <item name="android:cursorVisible">true</item>
+        <item name="android:textSize">@dimen/login_text_tab</item>
+        <item name="android:focusable">true</item>
+        <item name="android:backgroundTint">@color/appColor</item>
+        <item name="android:textColorHint">@color/black</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="lstextInputProfile">
@@ -62,7 +130,22 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:focusable">false</item>
         <item name="android:backgroundTint">@color/btnHover</item>
-        <item name="android:textColorHint">@color/appColor</item>
+        <item name="android:textColorHint">@color/black</item>
+    </style>
+
+
+    <style name="lstextInputProfile_mob">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:inputType">textMultiLine</item>
+        <item name="android:editable">false</item>
+        <item name="android:cursorVisible">false</item>
+        <item name="android:textSize">@dimen/lstatus_text_mob</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:focusable">false</item>
+        <item name="android:backgroundTint">@color/btnHover</item>
+        <item name="android:textColorHint">@color/black</item>
     </style>
 
 
@@ -77,7 +160,8 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/colorWhite</item>
     </style>
-    <style name="appButtonSave">
+
+    <style name="appButtonEntryIn">
         <item name="android:layout_width">140dp</item>
         <item name="android:layout_height">45dp</item>
         <item name="android:layout_gravity">center_horizontal</item>
@@ -87,6 +171,44 @@
         <item name="android:layout_marginBottom">10dp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="appButtonSave">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:layout_weight">3</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textSize">@dimen/login_button</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="btnIcon">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="txtIcon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/txtbtn</item>
+        </style>
+    <style name="txtIcon_tab">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/txtbtn_tab</item>
     </style>
 
 </resources>

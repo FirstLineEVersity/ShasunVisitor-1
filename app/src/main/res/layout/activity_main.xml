@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@color/cardColor"
+                android:background="@android:color/transparent"
                 android:orientation="vertical"
                 android:paddingLeft="10dp"
                 android:paddingTop="30dp"
@@ -41,7 +41,7 @@
                     android:gravity="center_horizontal"
                     android:text="dfgdhgfhggfgfhfhfh"
                     android:textColor="@color/purple_700"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/datetime"
                     android:textStyle="bold" />
 
 
@@ -56,16 +56,21 @@
                         android:drawableLeft="@drawable/p_ic_baseline_phone_android_24"
                         android:hint="Mobile"
                         android:inputType="number"
-                        android:textColorHint="@color/appColor" />
+                        android:textColorHint="@color/black"
+                        />
 
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <Button
+                <ImageButton
                     android:id="@+id/btnVisitorOut"
-                    style="@style/appButtonSave"
-                    android:layout_marginLeft="10dp"
-                    android:text="Entry Out"
+                    style="@style/btnIcon"
+                    android:src="@drawable/btnselector_out"
                     android:visibility="gone" />
+                <TextView
+                    android:id="@+id/txtVisitorOut"
+                    style="@style/txtIcon"
+                    android:text="Entry Out"
+                    android:visibility="gone"/>
+
 
 
             </LinearLayout>
@@ -87,6 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:paddingLeft="10dp"
+            android:paddingTop="200dp"
             android:paddingRight="10dp"
             android:paddingBottom="10dp"
             android:visibility="visible">
@@ -95,7 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -105,7 +111,7 @@
                     android:gravity="center_horizontal"
                     android:text="dfgdhgfhggfgfhfhfh"
                     android:textColor="@color/purple_700"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/login_text"
                     android:textStyle="bold" />
 
 
@@ -135,14 +141,12 @@
                     android:background="@color/gray"
                     android:padding="3dp" />
 
-                <Button
+
+                <ImageButton
                     android:id="@+id/buttonTake"
-                    style="@style/appButton"
-                    android:layout_width="200dp"
-                    android:drawableLeft="@drawable/ic_baseline_photo_camera_24"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:text="Start Camera" />
+                    style="@style/btnIcon"
+                    android:src="@drawable/btnselector_camera" />
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/usernameInputLayout"
@@ -234,7 +238,7 @@
                         android:id="@+id/txtWhoMeet"
                         style="@style/textInputProfileEdit"
                         android:drawableRight="@drawable/ic_baseline_expand_circle_down_24"
-                        android:hint="Select Person (Who Meet)"
+                        android:hint="@string/lsWhomMeet"
                         android:imeOptions="flagNoExtractUi|actionSearch" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -244,21 +248,97 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:gravity="center_horizontal"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingBottom="5dp"
+                    android:weightSum="10">
 
-                    <Button
-                        android:id="@+id/btnSave"
-                        style="@style/appButtonSave"
-                        android:layout_marginRight="10dp"
-                        android:text="Save" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:orientation="vertical">
 
-                    <Button
-                        android:id="@+id/btnRefresh"
-                        style="@style/appButtonSave"
-                        android:layout_marginLeft="10dp"
-                        android:text="Refresh" />
+                        <ImageButton
+                            android:id="@+id/btnPrint"
+                            style="@style/btnIcon"
+                            android:src="@drawable/btnselector_print" />
+
+                        <TextView
+                            style="@style/txtIcon"
+                            android:text="Print" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:orientation="vertical">
+
+                        <ImageButton
+                            android:id="@+id/btnRefresh"
+                            style="@style/btnIcon"
+                            android:src="@drawable/btnselector_refresh" />
+
+                        <TextView
+                            style="@style/txtIcon"
+                            android:text="Refresh" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <ImageButton
+                            android:id="@+id/btnPrint1"
+                            style="@style/btnIcon"
+                            android:src="@drawable/btnselector_print" />
+
+                        <TextView
+                            style="@style/txtIcon"
+                            android:text="Print" />
+
+                    </LinearLayout>
+
 
                 </LinearLayout>
+                <!--
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="10dp"
+                                    android:gravity="center_horizontal"
+                                    android:orientation="horizontal"
+                                    android:weightSum="9">
+
+                                    <Button
+                                        android:id="@+id/btnSave"
+                                        style="@style/appButtonSave"
+                                        android:drawableTop="@drawable/ic_baseline_save_24"
+                                        android:layout_marginRight="10dp"
+                                        android:text="Save" />
+
+                                    <Button
+                                        android:id="@+id/btnRefresh"
+                                        style="@style/appButtonSave"
+                                        android:drawableTop="@drawable/ic_baseline_cached_24"
+
+                                        android:layout_marginLeft="10dp"
+                                        android:text="Refresh" />
+
+                                    <Button
+                                        android:id="@+id/btnPrint"
+                                        style="@style/appButtonSave"
+                                        android:drawableTop="@drawable/ic_baseline_print_24"
+                                        android:layout_marginLeft="10dp"
+                                        android:text="Print" />
+
+                                </LinearLayout>
+                                -->
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

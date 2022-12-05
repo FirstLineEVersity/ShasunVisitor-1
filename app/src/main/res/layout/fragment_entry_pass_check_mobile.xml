@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".EntryPassCheckFragment"
+    android:background="@color/white">
+
+       <ScrollView
+            android:id="@+id/scrollViewMobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="100dp"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingTop="30dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="30dp">
+
+                <TextView
+                    android:id="@+id/txtDateTime1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="dfgdhgfhggfgfhfhfh"
+                    android:textColor="@color/purple_700"
+                    android:textSize="@dimen/datetime"
+                    android:textStyle="bold" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/textInputLayoutProfile"
+                    android:layout_marginTop="10dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txtMobile1"
+                        style="@style/textInputProfileEdit"
+                        android:drawableStart="@drawable/p_ic_baseline_phone_android_24"
+                        android:drawableLeft="@drawable/p_ic_baseline_phone_android_24"
+                        android:hint="Mobile"
+                        android:inputType="number"
+                        android:textColorHint="@color/black"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+                <ImageButton
+                    android:id="@+id/btnVisitorOut"
+                    style="@style/btnIcon"
+                    android:src="@drawable/btnselector_out"
+                    android:visibility="gone" />
+                <TextView
+                    android:id="@+id/txtVisitorOut"
+                    style="@style/txtIcon"
+                    android:text="Entry Out"
+                    android:visibility="gone"/>
+    </LinearLayout>
+        </ScrollView>
+
+
+</FrameLayout>

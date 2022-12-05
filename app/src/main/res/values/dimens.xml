@@ -12,13 +12,25 @@
     <dimen name="text_header_inside">10sp</dimen>
     <dimen name="text_inside">16sp</dimen>
     <dimen name="login_staff">24sp</dimen>
-    <dimen name="login_text">16sp</dimen>
-    <dimen name="login_button">16sp</dimen>
+    <dimen name="login_text">26sp</dimen>
+    <dimen name="login_text_date">18sp</dimen>
+    <dimen name="login_text_tab">30sp</dimen>
+    <dimen name="login_button">26sp</dimen>
     <dimen name="home_text">15sp</dimen>
+    <dimen name="home_radio">18sp</dimen>
+    <dimen name="home_radio_tab">26sp</dimen>
+    <dimen name="txtbtn">20sp</dimen>
+    <dimen name="txtbtn_tab">26sp</dimen>
     <dimen name="txt_appreciation">18sp</dimen>
+    <dimen name="dra_size">100dp</dimen>
+    <dimen name="datetime">26sp</dimen>
+    <dimen name="datetime_tab">30sp</dimen>
+    <dimen name="txtTint_mob">16sp</dimen>
+    <dimen name="txtTint">18sp</dimen>
 
 
-    <dimen name="lstatus_text">16sp</dimen>
+    <dimen name="lstatus_text_mob">20sp</dimen>
+    <dimen name="lstatus_text">26sp</dimen>
     <dimen name="lAttan_text">12sp</dimen>
     <dimen name="home_category">16sp</dimen>
     <dimen name="last_updated">12sp</dimen>
@@ -39,6 +51,7 @@
     <dimen name="fieldMarginBottom">25dp</dimen>
     <dimen name="labelMargin">15dp</dimen>
     <dimen name="labelTextSize">20sp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 
 
 </resources>

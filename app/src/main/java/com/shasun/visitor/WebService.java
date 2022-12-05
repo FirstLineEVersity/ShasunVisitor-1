@@ -19,20 +19,14 @@ import java.util.ArrayList;
 
 public class WebService {
 
+    //Device detection
+    public static boolean isTab = false;
+
     //Namespace of the Webservice - can be found in WSDL
     private static final String NAMESPACE = "http://ws.fipl.com/";
-    //Webservice URL - WSDL File location
-    //For Loyola server database
-    //private static String URL = "http://erp.loyolacollege.edu/evarsitywebserviceLoyola/EmployeeAndroid?wsdl";
 
     //For Shasun live server database
     private static final String URL = "https://erp.shasuncollege.edu.in/evarsitywebservice/EmployeeAndroid?wsdl";//Make sure you changed IP address
-    //private static final String URL = "http://184.95.52.42/VelsAndroid/VelsAndroid?wsdl";//Make sure you changed IP address
-
-    //private static final String URL = "https://uatserver.srmist.edu.in/srmistEmployeeAndroid/EmployeeAndroid?wsdl";//Make sure you changed IP address
-    //private static String URL = "http://192.168.0.106:8086/evarsitywebservice/EmployeeAndroid?wsdl";//Make sure you changed IP address
-    //For cvs server shasun database
-    //private static String URL = "http://firstlineinfotech.com/EmployeeAndroidShasun/EmployeeAndroid?wsdl";//Make sure you changed IP address
 
     //SOAP Action URI again Namespace + Web method name
     private static final String SOAP_ACTION = "http://ws.fipl.com/";
@@ -46,11 +40,11 @@ public class WebService {
     public static String invokeWS(){
         SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
         String strBody="";
-        Log.e("Method Name: ",METHOD_NAME);
+       // Log.e("Method Name: ",METHOD_NAME);
         if(strParameters != null) {
             for (int i = 0; i <= strParameters.length - 1; i = i + 3) {
                 strBody += "<" + strParameters[i + 1] + ">" + strParameters[i + 2] + "</" + strParameters[i + 1] + ">";
-                Log.i("Method Params: ","<" + strParameters[i + 1] + ">" + strParameters[i + 2] + "</" + strParameters[i + 1] + ">");
+            //    Log.i("Method Params: ","<" + strParameters[i + 1] + ">" + strParameters[i + 2] + "</" + strParameters[i + 1] + ">");
             }
         }
         EncryptDecrypt ED = new EncryptDecrypt();
@@ -86,7 +80,7 @@ public class WebService {
            // Log.e(TAG, "Error: " + e.getMessage());
             e.printStackTrace();
         }
-        Log.i("RESULT STRING TEST:",ResultString);
+      //  Log.i("RESULT STRING TEST:",ResultString);
 
         return ResultString;
     }
