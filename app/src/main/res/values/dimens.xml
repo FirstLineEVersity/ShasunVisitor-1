@@ -17,7 +17,7 @@
     <dimen name="login_text_tab">30sp</dimen>
     <dimen name="login_button">26sp</dimen>
     <dimen name="home_text">15sp</dimen>
-    <dimen name="home_radio">18sp</dimen>
+    <dimen name="home_radio">14sp</dimen>
     <dimen name="home_radio_tab">26sp</dimen>
     <dimen name="txtbtn">20sp</dimen>
     <dimen name="txtbtn_tab">26sp</dimen>
@@ -27,9 +27,7 @@
     <dimen name="datetime_tab">30sp</dimen>
     <dimen name="txtTint_mob">16sp</dimen>
     <dimen name="txtTint">18sp</dimen>
-
-
-    <dimen name="lstatus_text_mob">20sp</dimen>
+   <dimen name="lstatus_text_mob">20sp</dimen>
     <dimen name="lstatus_text">26sp</dimen>
     <dimen name="lAttan_text">12sp</dimen>
     <dimen name="home_category">16sp</dimen>
@@ -46,12 +44,10 @@
     <dimen name="student_staff_list_header">14sp</dimen>
     <dimen name="timetableheader">5sp</dimen>
     <dimen name="timetableAbb">4sp</dimen>
-
-    <dimen name="fieldWidth">400dp</dimen>
+   <dimen name="fieldWidth">400dp</dimen>
     <dimen name="fieldMarginBottom">25dp</dimen>
     <dimen name="labelMargin">15dp</dimen>
     <dimen name="labelTextSize">20sp</dimen>
     <dimen name="text_margin">16dp</dimen>
-
 
 </resources>
