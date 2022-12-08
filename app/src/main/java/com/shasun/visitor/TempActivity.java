@@ -94,16 +94,16 @@ public class TempActivity extends Activity {
         //prepare your html content which will be show in webview
         String htmlDocument1 = "<html>\n" +
                 "<body>\n" +
-                "    <div  id=\"divDetail\">\n" +
+                "    <div  id=\"divDetail\" >\n" +
                 "        <div  class=\"rTableRow\">\n" +
                 "            <tlb:process resultSet=\"<%=objDao.getVisitorDetailsPrint(longVisitorId)%>\">\n" +
-                "                <table width=\"80%\" CELLSPACING=\"10\" CELLPADDING=\"5\" id=\"example2\" align=\"center\">\n" +
+                "                <table width=\"40%\"  style=\"border: thin solid black\" CELLSPACING=\"10\" CELLPADDING=\"5\" id=\"example2\" align=\"left\" >\n" +
                 "                    <tr>\n" +
-                "                        <td colspan=\"2\" align=\"center\"><img src=\"data:image/png;base64," + shasunLogo + "\" style=\"height:120px;width:400px;vertical-align:top;\"><td>\n" +
+                "                        <td colspan=\"2\" align=\"center\"><img src=\"data:image/png;base64," + shasunLogo + "\" style=\"height:110px;width:350px;vertical-align:top;\"><td>\n" +
                 "                    </tr>\n" +
                 "                    <tr>\n" +
                 "                        <td><b>VISITOR PASS</b></td>\n" +
-                "                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img style=\"height:120px;width:90px;\" src=\"data:image/png;base64," + visitorImage + "\"></td>\n" +
+                "                        <td><img style=\"height:120px;width:90px;\" src=\"data:image/png;base64," + visitorImage + "\"></td>\n" +
                 "                    </tr>\n" +
                 "                    <tr>\n" +
                 "                        <td>Date & Time</td>\n" +
